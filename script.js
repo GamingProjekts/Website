@@ -47,6 +47,8 @@ document.addEventListener("DOMContentLoaded", () => {
             .join("");
     }
 
+    const { registerUser, verifyUser } = require('./userDataHandler');
+
     // Benutzerregistrierung
     const registerButton = document.getElementById("register-button");
     const registerUsername = document.getElementById("register-username");
@@ -54,22 +56,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const registerSuccess = document.getElementById("register-success");
 
     if (registerButton) {
-        registerButton.addEventListener("click", async () => {
+        registerButton.addEventListener("click", () => {
             const username = registerUsername.value.trim();
             const password = registerPassword.value.trim();
 
             if (username && password) {
-                const hashedPassword = await hashPassword(password);
-                const users = JSON.parse(localStorage.getItem("users") || "{}");
-
-                if (users[username]) {
-                    alert("Benutzername existiert bereits!");
-                } else {
-                    users[username] = { password: hashedPassword, hasVoted: false };
-                    localStorage.setItem("users", JSON.stringify(users));
+                try {
+                    registerUser(username, password);
                     registerSuccess.style.display = "block";
                     registerUsername.value = "";
                     registerPassword.value = "";
+                } catch (error) {
+                    alert(error.message);
                 }
             } else {
                 alert("Bitte fülle alle Felder aus!");
@@ -84,15 +82,12 @@ document.addEventListener("DOMContentLoaded", () => {
     const loginError = document.getElementById("login-error");
 
     if (loginButton) {
-        loginButton.addEventListener("click", async () => {
+        loginButton.addEventListener("click", () => {
             const username = loginUsername.value.trim();
             const password = loginPassword.value.trim();
 
             if (username && password) {
-                const hashedPassword = await hashPassword(password);
-                const users = JSON.parse(localStorage.getItem("users") || "{}");
-
-                if (users[username] && users[username].password === hashedPassword) {
+                if (verifyUser(username, password)) {
                     localStorage.setItem("loggedInUser", username);
                     window.location.href = "index.html"; // Weiterleitung zur Startseite
                 } else {
