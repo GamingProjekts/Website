@@ -13,6 +13,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Registrierung
 app.post('/register', (req, res) => {
     const { username, password } = req.body;
+    if (!username || !password) {
+        return res.status(400).send({ message: 'Benutzername und Passwort sind erforderlich!' });
+    }
     try {
         registerUser(username, password);
         res.status(201).send({ message: 'Registrierung erfolgreich!' });

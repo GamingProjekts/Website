@@ -54,6 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const registerUsername = document.getElementById("register-username");
     const registerPassword = document.getElementById("register-password");
     const registerSuccess = document.getElementById("register-success");
+    const registerError = document.getElementById("register-error");
 
     if (registerForm) {
         registerForm.addEventListener("submit", async (event) => {
@@ -70,17 +71,24 @@ document.addEventListener("DOMContentLoaded", () => {
                     });
                     if (response.ok) {
                         registerSuccess.style.display = "block";
+                        registerError.style.display = "none";
                         registerUsername.value = "";
                         registerPassword.value = "";
                     } else {
                         const error = await response.json();
-                        alert(error.message);
+                        registerError.textContent = error.message;
+                        registerError.style.display = "block";
+                        registerSuccess.style.display = "none";
                     }
                 } catch (error) {
-                    alert("Fehler bei der Registrierung: " + error.message);
+                    registerError.textContent = "Serverfehler: " + error.message;
+                    registerError.style.display = "block";
+                    registerSuccess.style.display = "none";
                 }
             } else {
-                alert("Bitte fülle alle Felder aus!");
+                registerError.textContent = "Bitte fülle alle Felder aus!";
+                registerError.style.display = "block";
+                registerSuccess.style.display = "none";
             }
         });
     }

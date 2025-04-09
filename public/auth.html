@@ -44,11 +44,12 @@
         <section id="register">
             <h2>Registrieren</h2>
             <form id="register-form">
-                <input type="text" id="register-username" placeholder="Benutzername">
-                <input type="password" id="register-password" placeholder="Passwort">
+                <input type="text" id="register-username" placeholder="Benutzername" required>
+                <input type="password" id="register-password" placeholder="Passwort" required>
                 <button type="submit" id="register-button">Registrieren</button>
             </form>
             <p id="register-success" style="color: green; display: none;">Registrierung erfolgreich!</p>
+            <p id="register-error" style="color: red; display: none;">Fehler bei der Registrierung!</p>
         </section>
     </main>
     <footer>
