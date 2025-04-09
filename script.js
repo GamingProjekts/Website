@@ -50,13 +50,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const { registerUser, verifyUser } = require('./userDataHandler');
 
     // Benutzerregistrierung
-    const registerButton = document.getElementById("register-button");
+    const registerForm = document.getElementById("register-form");
     const registerUsername = document.getElementById("register-username");
     const registerPassword = document.getElementById("register-password");
     const registerSuccess = document.getElementById("register-success");
 
-    if (registerButton) {
-        registerButton.addEventListener("click", async () => {
+    if (registerForm) {
+        registerForm.addEventListener("submit", async (event) => {
+            event.preventDefault(); // Verhindert das Standardformularverhalten
             const username = registerUsername.value.trim();
             const password = registerPassword.value.trim();
 
