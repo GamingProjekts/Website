@@ -3,73 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gaming Projekte</title>
+    <title>Gaming Projekte - Registrierung/Login</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>Willkommen zu Gaming Projekte</h1>
+    <header class="header">
+        <h1>Gaming Projekte</h1>
         <nav>
-            <ul id="menu-list">
-                <li><a href="auth.html">Registrieren/Login</a></li>
+            <ul class="menu">
+                <li><a href="index.html">Startseite</a></li>
+                <li><a href="auth.html" class="active">Registrieren/Login</a></li>
                 <li><a href="admin.html">Admin Bereich</a></li>
                 <li><a href="vote.html">Abstimmung</a></li>
-                <li><a href="#about">Über Uns</a></li>
-                <li><a href="#contact">Kontakt</a></li>
-                <li id="logout-link" class="hidden"><a href="#" id="logout-button">Logout</a></li>
-                <li id="delete-account-link" class="hidden"><a href="#" id="delete-account-button">Account löschen</a></li>
             </ul>
         </nav>
     </header>
-    <main>
-        <section id="about">
-            <h2>Über Uns</h2>
-            <p id="about-content">Hier findest du Informationen über unsere Gaming-Projekte.</p>
-        </section>
-        <section id="current-vote">
-            <h2>Aktuelle Abstimmung</h2>
-            <h3 id="current-vote-question">Keine aktive Abstimmung</h3>
-            <ul id="current-vote-answers"></ul>
-            <h3>Ergebnisse</h3>
-            <ul id="current-vote-results"></ul>
-        </section>
-        <section id="projects">
-            <h2>Projekte</h2>
-            <p>Eine Liste unserer aktuellen und abgeschlossenen Projekte.</p>
-        </section>
-        <section id="contact">
-            <h2>Kontakt</h2>
-            <p id="contact-content">Kontaktiere uns für weitere Informationen.</p>
-        </section>
-        <section id="register">
+    <main class="main">
+        <section class="form-section">
             <h2>Registrieren</h2>
-            <form id="register-form">
+            <form id="register-form" class="form">
                 <input type="text" id="register-username" placeholder="Benutzername" required>
                 <input type="password" id="register-password" placeholder="Passwort" required>
-                <button type="submit" id="register-button">Registrieren</button>
+                <button type="submit" class="btn">Registrieren</button>
             </form>
-            <p id="register-success" style="color: green; display: none;">Registrierung erfolgreich!</p>
-            <p id="register-error" style="color: red; display: none;">Fehler bei der Registrierung!</p>
+            <p id="register-success" class="success-message hidden">Registrierung erfolgreich!</p>
+            <p id="register-error" class="error-message hidden">Fehler bei der Registrierung!</p>
+        </section>
+        <section class="form-section">
+            <h2>Login</h2>
+            <form id="login-form" class="form">
+                <input type="text" id="login-username" placeholder="Benutzername" required>
+                <input type="password" id="login-password" placeholder="Passwort" required>
+                <button type="submit" class="btn">Login</button>
+            </form>
+            <p id="login-error" class="error-message hidden">Ungültige Anmeldedaten!</p>
         </section>
     </main>
-    <footer>
+    <footer class="footer">
         <p>&copy; 2023 Gaming Projekte</p>
     </footer>
     <script src="script.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const menuList = document.getElementById("menu-list");
-            const loggedInUser = localStorage.getItem("loggedInUser");
-            const pages = JSON.parse(localStorage.getItem("pages") || "[]");
-
-            pages.forEach(page => {
-                if (page.visibility === "all" || (page.visibility === "loggedIn" && loggedInUser)) {
-                    const li = document.createElement("li");
-                    li.innerHTML = `<a href="#">${page.name}</a>`;
-                    menuList.appendChild(li);
-                }
-            });
-        }); // Schließende Klammer hinzugefügt
-    </script>
 </body>
 </html>
