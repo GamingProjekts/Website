@@ -10,6 +10,11 @@ const PORT = 3000;
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Route für die Startseite
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
 // Registrierung
 app.post('/register', (req, res) => {
     const { username, password } = req.body;
