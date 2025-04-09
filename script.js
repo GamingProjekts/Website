@@ -56,18 +56,27 @@ document.addEventListener("DOMContentLoaded", () => {
     const registerSuccess = document.getElementById("register-success");
 
     if (registerButton) {
-        registerButton.addEventListener("click", () => {
+        registerButton.addEventListener("click", async () => {
             const username = registerUsername.value.trim();
             const password = registerPassword.value.trim();
 
             if (username && password) {
                 try {
-                    registerUser(username, password);
-                    registerSuccess.style.display = "block";
-                    registerUsername.value = "";
-                    registerPassword.value = "";
+                    const response = await fetch('/register', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ username, password })
+                    });
+                    if (response.ok) {
+                        registerSuccess.style.display = "block";
+                        registerUsername.value = "";
+                        registerPassword.value = "";
+                    } else {
+                        const error = await response.json();
+                        alert(error.message);
+                    }
                 } catch (error) {
-                    alert(error.message);
+                    alert("Fehler bei der Registrierung: " + error.message);
                 }
             } else {
                 alert("Bitte fülle alle Felder aus!");
@@ -82,16 +91,25 @@ document.addEventListener("DOMContentLoaded", () => {
     const loginError = document.getElementById("login-error");
 
     if (loginButton) {
-        loginButton.addEventListener("click", () => {
+        loginButton.addEventListener("click", async () => {
             const username = loginUsername.value.trim();
             const password = loginPassword.value.trim();
 
             if (username && password) {
-                if (verifyUser(username, password)) {
-                    localStorage.setItem("loggedInUser", username);
-                    window.location.href = "index.html"; // Weiterleitung zur Startseite
-                } else {
-                    loginError.style.display = "block";
+                try {
+                    const response = await fetch('/login', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ username, password })
+                    });
+                    if (response.ok) {
+                        localStorage.setItem("loggedInUser", username);
+                        window.location.href = "index.html"; // Weiterleitung zur Startseite
+                    } else {
+                        loginError.style.display = "block";
+                    }
+                } catch (error) {
+                    alert("Fehler beim Login: " + error.message);
                 }
             } else {
                 alert("Bitte fülle alle Felder aus!");

@@ -2,17 +2,16 @@
   "name": "gaming-projekte",
   "version": "1.0.0",
   "description": "Eine Website für Gaming-Projekte",
-  "main": "script.js",
+  "main": "server.js",
   "scripts": {
-    "start": "live-server --port=8080",
-    "build": "echo 'Build-Script kann hier hinzugefügt werden, z. B. für Webpack oder andere Tools'",
-    "clean": "rm -rf dist && echo 'Bereinigt!'",
-    "test": "echo 'Keine Tests definiert'"
+    "start": "node server.js",
+    "install-deps": "npm install"
   },
-  "dependencies": {},
-  "devDependencies": {
-    "live-server": "^1.2.2"
+  "dependencies": {
+    "express": "^4.18.2",
+    "body-parser": "^1.20.2"
   },
+  "devDependencies": {},
   "author": "",
   "license": "ISC"
 }

@@ -3,8 +3,17 @@ const crypto = require('crypto');
 const path = require('path');
 
 const DATA_FILE = path.join(__dirname, 'userData.json');
-const ENCRYPTION_KEY = crypto.randomBytes(32); // 32 Byte Schlüssel
+const KEY_FILE = path.join(__dirname, 'encryptionKey.key');
 const IV_LENGTH = 16; // Initialisierungsvektor-Länge
+
+// Verschlüsselungsschlüssel laden oder generieren
+let ENCRYPTION_KEY;
+if (fs.existsSync(KEY_FILE)) {
+    ENCRYPTION_KEY = fs.readFileSync(KEY_FILE);
+} else {
+    ENCRYPTION_KEY = crypto.randomBytes(32);
+    fs.writeFileSync(KEY_FILE, ENCRYPTION_KEY);
+}
 
 // Daten verschlüsseln
 function encrypt(text) {
