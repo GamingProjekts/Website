@@ -56,3 +56,10 @@
                 if (page.visibility === "all" || (page.visibility === "loggedIn" && loggedInUser)) {
                     const li = document.createElement("li");
                     li.innerHTML = `<a href="#">${page.name}</a>`;
+                    menuList.appendChild(li);
+                }
+            });
+        }); // Schließende Klammer hinzugefügt
+    </script>
+</body>
+</html>
