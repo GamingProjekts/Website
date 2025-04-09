@@ -4,61 +4,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gaming Projekte</title>
-    <link rel="stylesheet" href="style.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        header {
+            background: linear-gradient(90deg, #4CAF50, #45a049);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+        nav a {
+            color: white !important;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        section {
+            padding: 2rem 0;
+        }
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 1rem 0;
+        }
+    </style>
 </head>
 <body>
     <header>
         <h1>Willkommen zu Gaming Projekte</h1>
-        <nav>
-            <ul id="menu-list">
-                <li><a href="auth.html">Registrieren/Login</a></li>
-                <li><a href="admin.html">Admin Bereich</a></li>
-                <li><a href="vote.html">Abstimmung</a></li>
-                <li><a href="#about">Über Uns</a></li>
-                <li><a href="#contact">Kontakt</a></li>
-                <li id="logout-link" class="hidden"><a href="#" id="logout-button">Logout</a></li>
-                <li id="delete-account-link" class="hidden"><a href="#" id="delete-account-button">Account löschen</a></li>
-            </ul>
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item"><a class="nav-link" href="#about">Über Uns</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#vote">Abstimmung</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#projects">Projekte</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">Kontakt</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#auth">Registrieren/Login</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#admin">Admin Bereich</a></li>
+                    </ul>
+                </div>
+            </div>
         </nav>
     </header>
-    <main>
-        <section id="about">
-            <h2>Über Uns</h2>
-            <p id="about-content">Hier findest du Informationen über unsere Gaming-Projekte.</p>
+    <main class="container">
+        <!-- Über Uns -->
+        <section id="about" class="text-center bg-light shadow rounded p-4 mb-4">
+            <h2 class="mb-4">Über Uns</h2>
+            <p>Hier findest du Informationen über unsere Gaming-Projekte.</p>
         </section>
-        <section id="current-vote">
-            <h2>Aktuelle Abstimmung</h2>
-            <h3 id="current-vote-question">Keine aktive Abstimmung</h3>
-            <ul id="current-vote-answers"></ul>
+
+        <!-- Abstimmung -->
+        <section id="vote" class="text-center bg-light shadow rounded p-4 mb-4">
+            <h2 class="mb-4">Aktuelle Abstimmung</h2>
+            <h3 id="vote-question">Keine aktive Abstimmung</h3>
+            <ul id="current-vote-answers" class="list-unstyled"></ul>
             <h3>Ergebnisse</h3>
-            <ul id="current-vote-results"></ul>
+            <ul id="current-vote-results" class="list-unstyled"></ul>
         </section>
-        <section id="projects">
-            <h2>Projekte</h2>
+
+        <!-- Projekte -->
+        <section id="projects" class="text-center bg-light shadow rounded p-4 mb-4">
+            <h2 class="mb-4">Projekte</h2>
             <p>Eine Liste unserer aktuellen und abgeschlossenen Projekte.</p>
         </section>
-        <section id="contact">
-            <h2>Kontakt</h2>
-            <p id="contact-content">Kontaktiere uns für weitere Informationen.</p>
+
+        <!-- Kontakt -->
+        <section id="contact" class="text-center bg-light shadow rounded p-4 mb-4">
+            <h2 class="mb-4">Kontakt</h2>
+            <p>Kontaktiere uns für weitere Informationen.</p>
+        </section>
+
+        <!-- Registrierung/Login -->
+        <section id="auth" class="text-center bg-light shadow rounded p-4 mb-4">
+            <h2 class="mb-4">Registrieren/Login</h2>
+            <a href="#" class="text-danger">Logout</a> | <a href="#" class="text-danger">Account löschen</a>
         </section>
     </main>
     <footer>
+        <p>&copy; 2023 Gaming Projekte. Alle Rechte vorbehalten.</p>
     </footer>
-    <script src="script.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const menuList = document.getElementById("menu-list");
-            const loggedInUser = localStorage.getItem("loggedInUser");
-            const pages = JSON.parse(localStorage.getItem("pages") || "[]");
-
-            pages.forEach(page => {
-                if (page.visibility === "all" || (page.visibility === "loggedIn" && loggedInUser)) {
-                    const li = document.createElement("li");
-                    li.innerHTML = `<a href="#">${page.name}</a>`;
-                    menuList.appendChild(li);
-                }
-            });
-        });
-    </script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
