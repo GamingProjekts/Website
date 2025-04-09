@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Bereich</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Admin Bereich</h1>
+    </header>
+    <main>
+        <section id="login" class="admin-section">
+            <h2>Login</h2>
+            <input type="password" id="admin-password" placeholder="Passwort eingeben">
+            <button id="login-button">Login</button>
+            <p id="login-error" class="error-message hidden">Falsches Passwort!</p>
+        </section>
+        <section id="admin-panel" class="admin-section hidden">
+            <h2>Abstimmungen verwalten</h2>
+            <textarea id="vote-question" placeholder="Abstimmungsfrage eingeben"></textarea>
+            <div id="answers-container">
+                <input type="text" class="answer-input" placeholder="Antwort eingeben">
+            </div>
+            <button id="add-answer">Antwort hinzufügen</button>
+            <label for="vote-duration">Dauer (in Minuten):</label>
+            <input type="number" id="vote-duration" placeholder="Dauer eingeben">
+            <button id="save-vote">Abstimmung speichern</button>
+            <button id="delete-vote">Abstimmung löschen</button>
+            <p id="save-success" class="success-message hidden">Abstimmung gespeichert!</p>
+            <p id="delete-success" class="error-message hidden">Abstimmung gelöscht!</p>
+            <button id="back-to-home">Zur Startseite</button>
+        </section>
+        <section id="page-management" class="admin-section hidden">
+            <h2>Seiten verwalten</h2>
+            <div id="existing-pages">
+                <h3>Bestehende Seiten</h3>
+                <ul id="page-list"></ul>
+                <button id="edit-page-button">Ausgewählte Seite bearbeiten</button>
+                <button id="delete-page-button">Ausgewählte Seite löschen</button>
+            </div>
+            <div id="create-page">
+                <h3>Neue Seite erstellen</h3>
+                <label for="page-name">Seitenname:</label>
+                <input type="text" id="page-name" placeholder="Seitenname eingeben">
+                <label for="page-content">Inhalt:</label>
+                <textarea id="page-content" placeholder="Seiteninhalt eingeben"></textarea>
+                <label for="page-visibility">Sichtbarkeit:</label>
+                <select id="page-visibility">
+                    <option value="all">Für alle sichtbar</option>
+                    <option value="loggedIn">Nur für eingeloggte Benutzer</option>
+                </select>
+                <button id="create-page-button">Seite erstellen</button>
+            </div>
+            <div id="edit-page" class="hidden">
+                <h3>Seite bearbeiten</h3>
+                <div id="page-preview" contenteditable="true" style="border: 1px solid #ccc; padding: 1rem; background-color: #2e2e2e; color: #ffffff;">
+                    <!-- Vorschau der Seite wird hier geladen -->
+                </div>
+                <label for="edit-page-visibility">Sichtbarkeit:</label>
+                <select id="edit-page-visibility">
+                    <option value="all">Für alle sichtbar</option>
+                    <option value="loggedIn">Nur für eingeloggte Benutzer</option>
+                </select>
+                <button id="save-page-button">Änderungen speichern</button>
+                <button id="cancel-edit-button">Bearbeitung abbrechen</button>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Gaming Projekte</p>
+    </footer>
+    <div id="edit-page-modal" class="hidden modal">
+        <div class="modal-content">
+            <span id="close-modal" class="close-button">&times;</span>
+            <h3>Seite bearbeiten</h3>
+            <div id="page-edit-container" contenteditable="true" style="border: 1px solid #ccc; padding: 1rem; background-color: #2e2e2e; color: #ffffff; height: 60vh; overflow-y: auto;">
+                <!-- Bearbeitbarer Inhalt wird hier geladen -->
+            </div>
+            <div class="edit-controls">
+                <button id="add-section-button">Abschnitt hinzufügen</button>
+                <button id="add-menu-item-button">Menüpunkt hinzufügen</button>
+                <button id="save-page-button">Änderungen speichern</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const loginButton = document.getElementById("login-button");
+            const adminPassword = document.getElementById("admin-password");
+            const loginError = document.getElementById("login-error");
+            const adminPanel = document.getElementById("admin-panel");
+            const pageManagement = document.getElementById("page-management");
+
+            loginButton.addEventListener("click", () => {
+                if (adminPassword.value === "2q") {
+                    loginError.style.display = "none";
+                    adminPanel.style.display = "block";
+                    pageManagement.style.display = "block";
+                } else {
+                    loginError.style.display = "block";
+                }
+            });
+
+            const saveAboutButton = document.getElementById("save-about");
+            const aboutInput = document.getElementById("about-input");
+            const saveContactButton = document.getElementById("save-contact");
+            const contactInput = document.getElementById("contact-input");
+
+            // Lade bestehende Inhalte
+            aboutInput.value = localStorage.getItem("aboutPage") || "";
+            contactInput.value = localStorage.getItem("contactPage") || "";
+
+            // Speichere "Über Uns"
+            saveAboutButton.addEventListener("click", () => {
+                localStorage.setItem("aboutPage", aboutInput.value.trim());
+                alert("'Über Uns' wurde gespeichert!");
+            });
+
+            // Speichere "Kontakt"
+            saveContactButton.addEventListener("click", () => {
+                localStorage.setItem("contactPage", contactInput.value.trim());
+                alert("'Kontakt' wurde gespeichert!");
+            });
+        });
+    </script>
+</body>
+</html>
